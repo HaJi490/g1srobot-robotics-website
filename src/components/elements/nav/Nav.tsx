@@ -2,7 +2,7 @@ import React from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
 
-import NavItem from './UserItems/NavItem'
+import NavItem from './NavItem'
 import { Menu } from 'lucide-react';
 
 
@@ -14,7 +14,7 @@ export default function Nav() {
     {href: '/company', label: '회사 소개'},
   ]
   return (
-     <nav className='w-full h-20 border border-b border-gray-200 flex items-center justify-center'>
+     <nav className='w-full h-18 border border-b border-gray-200 flex items-center justify-center'>
       <div className='w-full max-w-screen-2xl px-4 md:px-8 lg:px-12 flex items-center justify-between '>
         <Link href='/'>
           <Image className="dark:invert "
@@ -30,7 +30,15 @@ export default function Nav() {
             <NavItem key={i.href} href={i.href}>{i.label}</NavItem>
           ))}
         </ul>
+        <div className='flex gap-7 items-center'>
+        <Link href={'/support'}
+              className='px-5 py-2 bg-main rounded-full
+                        text-white text-sm'      
+        >
+          고객 지원
+        </Link>
         <Menu />
+        </div>
       </div>
     </nav>
   )
