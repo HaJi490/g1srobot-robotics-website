@@ -19,7 +19,7 @@ export default function HeroTitle() {
 
   return (
     <section
-         className="relative w-full h-[535px] flex flex-col items-center justify-center text-white bg-cover bg-center"
+        className="relative w-full h-[535px] flex flex-col items-center justify-center text-white bg-cover bg-center"
             style={{
                 // 이미지 위에 50% 불투명도의 검은색 막 씌우기
                 backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url(${bgImage})`

@@ -1,6 +1,7 @@
 import { INDUSTRY } from '@/constants/industry';
 
 import ProductSection from '@/components/pages/main/ProductSection';
+import UseCaseSection from '@/components/pages/main/UseCaseSection';
 import IconBtn from '@/components/ui/IconBtn';
 import { MoveRight } from 'lucide-react';
 
@@ -23,7 +24,7 @@ export default function Home() {
       </div>
       <div className="w-full h-fit flex flex-col items-center">
         <h3 className='text-main'>Solution</h3>
-        <h2 className='text-3xl'>
+        <h2 className='text-4xl font-bold'>
           Lorem ipsum dolor sit amet, consectetur adipiscing elit
         </h2>
         <div className='flex gap-10 mt-15'>
@@ -37,6 +38,7 @@ export default function Home() {
         </div>
       </div>
       <ProductSection />
+      <UseCaseSection />
       <div>
 
       </div>

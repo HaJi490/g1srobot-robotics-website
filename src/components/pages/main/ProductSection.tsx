@@ -8,7 +8,7 @@ import { MoveRight } from 'lucide-react';
 
 export default function ProductSection() {
     const [activeId, setActiveId] = useState(0); // 현재 활성화된 아이템 인덱스
-    const itemRefs = useRef<(HTMLDivElement | null)[]>([]);
+    const itemRefs = useRef<(HTMLDivElement | null)[]>([]); // 각 아이템을 참조하기 위한 Ref 배열
 
     useEffect(() => {
         const observerOptions = {
@@ -36,27 +36,52 @@ export default function ProductSection() {
     }, []);
 
     return (
-        <section className='mx-auto max-w-7xl px-10 '>
-            <h3 className='text-main'>Products</h3>
-            <h2 className='text-3xl'>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit
-            </h2>
-            <div className='flex flex-col gap-20'>
-                {PRODUCT_LINE.map(item => (
-                    <div className='flex flex-col gap-3'>
-                        <h3 className='text-xl font-bold'>{item.label}</h3>
-                        <p>{item.content}</p>
-                        <div>
-                            {item.kind.map(sub => (
-                                <span className='w-fit mr-2 px-3 py-2 bg-main/20 rounded-full text-main text-sm'>
-                                    {sub.label}
-                                </span>
-                            ))}
-                        </div>
-                        <p className='flex items-center text-main'>더 알아보기<MoveRight size={14} /></p>
+        <section className='w-full py-20'>
+            <div className='mx-auto max-w-7xl px-5 md:px-10 lg:px-20'>
+                <h3 className='text-main'>Products</h3>
+                <h2 className='text-4xl font-bold mb-20 max-w-2xl leading-tight'>
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit
+                </h2>
+                <div className='relative flex gap-20'>
+                    {/* 왼쪽: 스크롤되는 텍스트 리스트 */}
+                    <div className='flex-1 flex flex-col gap-30 transition-opacity duration-500'>
+                        {PRODUCT_LINE.map((item, index) => (
+                            <div key={`${index}_${item.content}`}
+                                data-index = {index}
+                                ref={(el) => (itemRefs.current[index] = el)} //ref 저장
+                                className= {`flex flex-col gap-6 transition-opacity duration-500
+                                            ${activeId === index ? 'opacity-100' : 'opacity-30'}`}
+                                >
+                                <h3 className='text-3xl font-bold'>{item.label}</h3>
+                                <p className='text-gray-400 text-lg leading-relaxed'>{item.content}</p>
+                                <div className='flex flex-wrap gap-2'>
+                                    {item.kind.map((sub, i) => (
+                                        <span key={`${i}_${sub}`} className='px-4 py-1.5 bg-main/20 rounded-full text-main text-md'>
+                                            {sub.label}
+                                        </span>
+                                    ))}
+                                </div>
+                                <p className='flex items-center gap-2 text-main font-semibold cursor-pointer group'>
+                                    더 알아보기
+                                    <MoveRight size={18} className='group-hover:translate-x-1/2 transition-transform'/>
+                                </p>
+                            </div>
+                        ))}
                     </div>
-                ))}
-
+                    {/* 오른쪽: 화면에 고정되는 이미지 박스 */}
+                    <div className='hidden md:block flex-1 sticky top-1/4 h-[500px]'>
+                        <div className='relative w-full h-full bg-gray-800 rounded-xl overflow-hidden'>
+                            {/* 현재 activeId에 맞는 이미지 출력 */}
+                            <Image src={PRODUCT_LINE[activeId].ProductImg}
+                                    alt={PRODUCT_LINE[activeId].label}
+                                    fill
+                                    className='object-cover transition-all duration-700 ease-in-out'
+                            />
+                            {/* 오버레이 */}
+                            {/* <div className='absolute inset-0 bg-gradient-to-t from-black/40 to-transparent' />// */}
+                        </div>
+                    </div>
+                </div>
             </div>
         </section>
     )
