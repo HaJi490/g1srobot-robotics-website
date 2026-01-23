@@ -1,8 +1,11 @@
+// 랜딩페이지 ISR로 sEO
 import { INDUSTRY } from '@/constants/industry';
 
+import IconBtn from '@/components/ui/IconBtn';
 import ProductSection from '@/components/pages/main/ProductSection';
 import UseCaseSection from '@/components/pages/main/UseCaseSection';
-import IconBtn from '@/components/ui/IconBtn';
+import CtaSection from '@/components/pages/main/CtaSection';
+import Footer from '@/components/elements/footer/Footer';
 import { MoveRight } from 'lucide-react';
 
 export default function Home() {
@@ -39,9 +42,9 @@ export default function Home() {
       </div>
       <ProductSection />
       <UseCaseSection />
-      <div>
-
-      </div>
+      <CtaSection />
+      
+      <Footer />
     </div>
   )
 }
