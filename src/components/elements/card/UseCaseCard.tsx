@@ -3,6 +3,7 @@ import Link from 'next/link'
 import Image from 'next/image'
 
 import { UseCase } from '@/types/useCase'
+import Badge from '@/components/ui/Badge'
 
 interface UseCaseCardProps {
   useCase: UseCase
@@ -22,13 +23,11 @@ export default function UseCaseCard({useCase}: UseCaseCardProps) {
         }
         <div className='absolute top-3 left-3 z-20 flex flex-wrap gap-1'>
             {industries?.map((i) => (
-              <span key={i.name} 
-                    className='px-3 py-1 bg-main text-white rounded-md 
-                      text-[12px] font-semibold tracking-tight shadow-md
-                      transition-colors duration-300'
-              >
-                {i.name}
-              </span>
+              <Badge 
+                key={i.name}
+                label={i.name}
+                variant="filled"
+              />
             ))}
         </div>
 
@@ -42,9 +41,12 @@ export default function UseCaseCard({useCase}: UseCaseCardProps) {
           </p>
           <div className='flex flex-wrap  gap-x-3 gap-y-1 border-t border-white/20 pt-3'>
             {products?.map((p) => (
-              <span key={p.name} className='text-[12px] px-2 py-0.5 border border-white/50 rounded-full'>
-                #{p.name}
-              </span>
+              <Badge
+                key={p.name}
+                label={p.name}
+                variant="outline"
+                prefix="#"
+              />
             ))}
           </div>
         </div>

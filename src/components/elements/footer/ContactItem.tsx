@@ -1,11 +1,19 @@
 import React from 'react'
 
+import { ContactInfo } from '@/types/support'
 import { MapPin } from 'lucide-react'
 
-export default function ContactItem() {
+interface ContactItemProps {
+  info: ContactInfo
+}
+
+export default function ContactItem({info}: ContactItemProps) {
+  const {icon: Icon, value, href} = info;
+  
   return (
-    <div>
-      
+    <div className='flex gap-7 text-white'>
+      <Icon />
+      <span>{value}</span>
     </div>
   )
 }
