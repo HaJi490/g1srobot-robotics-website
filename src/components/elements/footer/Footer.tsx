@@ -24,8 +24,12 @@ export default function Footer() {
         </div>
         <div className='flex flex-col items-end justify-between'>
             <div className='flex gap-8'>
-              {NAV_ITEMS.map(item => (
-                <Link href={item.href} className='font-bold'>{item.label}</Link>
+              {NAV_ITEMS.map((item,idx) => (
+                <Link key={`${idx}.${item.label}`}
+                      href={item.href} className='font-bold'
+                >
+                  {item.label}
+                </Link>
               ))}
             </div>
             <div className='flex flex-col gap-2 items-end'>

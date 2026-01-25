@@ -1,6 +1,6 @@
 import React from 'react'
 
-import BannerBtn from '@/components/ui/CtaBtn'
+import BannerBtn from '@/components/elements/CtaBtn'
 import { CTA } from '@/constants/cta'
 
 export default function CtaSection() {

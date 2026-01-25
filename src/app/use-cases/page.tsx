@@ -1,40 +1,30 @@
+
 import React from 'react'
 import { client } from "@/lib/sanity";
 
 import { USE_CASES_QUERY } from '@/lib/queries'
+import { INDUSTRY_QUERY } from '@/lib/queries';
+import { PRODUCT_LINE_QUERY } from '@/lib/queries';
 import HeroBanner from '@/components/elements/hero/HeroBanner'
-import UseCaseCard from '@/components/elements/card/UseCaseCard'
+import UseCaseContainer from '@/components/pages/use-cases/UseCaseContainer';
 import { UseCaseDTO } from '@/types/respDto';
-
+import { IndustryDTO } from '@/types/respDto';
+import { ProductLineDTO } from '@/types/respDto';
 
 export default async function page() {
   const useCases: UseCaseDTO[] = await client.fetch(USE_CASES_QUERY) || [];
+  const industries: IndustryDTO[] = await client.fetch(INDUSTRY_QUERY) || [];
+  const productLine: ProductLineDTO[] = await client.fetch(PRODUCT_LINE_QUERY) || []
+
+
+
   return (
     <div className=''>
         <HeroBanner />
-        {/* 필터자리 */}
-        <div className='flex flex-col items-center'>
-          <p>
-            산업군별 | 제품별
-          </p>
-          
-        </div>
-
-        {/* use cases card */}
-        <div className='py-20 mx-auto max-w-7xl px-5 md:px-10 lg:px-20
-                        grid grid-cols-3 gap-5'
-        >
-            {useCases.length > 0 
-                ?useCases.map(item => (
-                    <UseCaseCard key={item.title} 
-                                useCase = {item}
-                    />
-                ))
-                : (
-                    <p>등록된 사례가 없습니다.</p>
-                )
-            }
-        </div>
+        <UseCaseContainer initialUseCases = {useCases}
+                          industries = {industries}
+                          productLine = {productLine}
+        />
     </div>
   )
 }

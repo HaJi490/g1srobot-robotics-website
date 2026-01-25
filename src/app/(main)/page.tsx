@@ -1,7 +1,5 @@
 // 랜딩페이지 ISR로 sEO
-import { INDUSTRY } from '@/constants/industry';
-
-import IconBtn from '@/components/ui/IconBtn';
+import IndustrySection from '@/components/pages/main/IndustrySection';
 import ProductSection from '@/components/pages/main/ProductSection';
 import UseCaseSection from '@/components/pages/main/UseCaseSection';
 import CtaSection from '@/components/pages/main/CtaSection';
@@ -25,21 +23,7 @@ export default function Home() {
           <MoveRight size={14} />
         </button>
       </div>
-      <div className="w-full h-fit flex flex-col items-center">
-        <h3 className='text-main'>Solution</h3>
-        <h2 className='text-4xl font-bold'>
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit
-        </h2>
-        <div className='flex gap-10 mt-15'>
-          {INDUSTRY.map(item => (
-            <IconBtn key={item.label} 
-                    label={item.label}
-                    icon={item.icon}
-                    href={item.href}
-            />
-          ))}
-        </div>
-      </div>
+      <IndustrySection />
       <ProductSection />
       <UseCaseSection />
       <CtaSection />

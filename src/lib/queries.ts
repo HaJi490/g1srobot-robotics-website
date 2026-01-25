@@ -15,6 +15,7 @@ export const productsQuery = `
   }
 `;
 
+// 제품군
 export const PRODUCT_LINE_QUERY = `
   *[_type == "productLine"] {
     // 1. 제품군(ProductLine) 정보 매핑
@@ -33,6 +34,7 @@ export const PRODUCT_LINE_QUERY = `
   }
 `;
 
+// 적용 사례
 export const USE_CASES_QUERY = `
   *[_type == "useCase"] | order(endDate desc) {
     "title": title,
@@ -47,5 +49,14 @@ export const USE_CASES_QUERY = `
       name
     },
     "thumbnail": mainImage.asset->url,
+  }
+`;
+
+export const INDUSTRY_QUERY = `
+  *[_type == "industry"] {
+    "label": name,
+    "slug": slug.current,
+    "href": "/solutions/" + slug.current,
+    "icon": iconName
   }
 `;
