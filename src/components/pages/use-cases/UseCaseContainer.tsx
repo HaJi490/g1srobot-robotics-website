@@ -1,36 +1,47 @@
 'use client'
 
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useMemo } from 'react'
 
 
 import UseCaseCard from '@/components/elements/card/UseCaseCard'
 import Badge from '@/components/ui/Badge';
 import Button from '@/components/ui/Button';
-import { UseCaseDTO } from '@/types/respDto';
-import { IndustryDTO } from '@/types/respDto';
-import { ProductLineDTO } from '@/types/respDto';
+import { UseCaseDTO, IndustryDTO, ProductDTO } from '@/types/respDto';
 import { RotateCw } from 'lucide-react';
 
 
 interface UseCaseContainerProps {
     initialUseCases: UseCaseDTO[]
     industries: IndustryDTO[]
-    productLine: ProductLineDTO[]
+    products: ProductDTO[]
 }
 
-export default function UseCaseContainer({ initialUseCases, industries, productLine }: UseCaseContainerProps) {
+export default function UseCaseContainer({ initialUseCases, industries, products }: UseCaseContainerProps) {
     const [filterType, setFilterType] = useState<'industry' | 'product'>('industry'); 
-    const [selectedFilters, setSelectedFilters] = useState<string[] >([]); //현재 선택된 필터
+    const [selectedFilters, setSelectedFilters] = useState<string[] >([]);  //현재 선택된 필터
     const [filteredCases, setFilteredCases] = useState(initialUseCases);    // 화면에 뿌릴 데이터
 
-    useEffect(() => {
-        const allLabels = filterType === 'industry'
+    // 선택가능한 모든 옵션 변수로 추출
+    const currentOptions = useMemo(() => {
+        return filterType === 'industry'
             ? industries.map(i => i.label)
-            : productLine.map(p => p.label)
-        
-        setSelectedFilters(allLabels);
-    },[filterType, industries, productLine])
+            : products.map(p => p.label)
+    },[filterType, industries, products])
     
+    // 전체 선택 여부 확인
+    const isAllSelected = selectedFilters.length === currentOptions.length && currentOptions.length > 0;
+
+    //탭 변경 시 전체 선택 상태로 초기화
+    useEffect(()=>{
+        setSelectedFilters(currentOptions);
+    }, [currentOptions])
+
+    // 전체 선택/해제 함수
+    const handleAllToggle = () => {
+        if (isAllSelected) setSelectedFilters([]);
+        else setSelectedFilters(currentOptions);
+    }
+
     // 핸들 on/off 로직
     const handleToggle = (label: string) => {
         setSelectedFilters(
@@ -42,15 +53,16 @@ export default function UseCaseContainer({ initialUseCases, industries, productL
 
     // 검색하기 필터링 수행
     const handleSearch = () => {
-        if (!selectedFilters) {
+        if (selectedFilters.length === 0) {
             setFilteredCases(initialUseCases);
+            return;
         } else {
             const filtered = initialUseCases.filter(uc => {
                 if (filterType === 'industry') {
-                    uc.industries.some(ind => selectedFilters.includes(ind.name));
+                    return uc.industries.some(ind => selectedFilters.includes(ind.name));
                 }
                 if (filterType === 'product') {
-                    uc.products.some(pred => selectedFilters.includes(pred.name));
+                    return uc.products.some(prod => selectedFilters.includes(prod.name));
                 }
             });
             setFilteredCases(filtered);
@@ -74,40 +86,40 @@ export default function UseCaseContainer({ initialUseCases, industries, productL
                         제품군별
                     </button>
                 </div>
-                <div className='max-w-4xl flex gap-4'>
-                    {(filterType === 'industry' ? industries : productLine).map(item => (
+                <div className='max-w-4xl flex gap-3'>
+                    <Badge label= '전체' 
+                            variant='filter'
+                            isActive={isAllSelected}
+                            onClick={handleAllToggle}
+                    />
+                    {(filterType === 'industry' ? industries : products).map(item => (
                         <Badge key={item.label}
                                 label={item.label}
                                 variant='filter' 
                                 isActive={selectedFilters.includes(item.label)}
                                 onClick={()=>handleToggle(item.label)}
-                                className='text-md cursor-pointer' />
+                                className='text-md' />
                     ))}
                 </div>
                 <div className='flex gap-2'>
                     <Button label='검색하기'
                             onClick = {handleSearch}
                     />
-                    <Button label={<RotateCw size={20} />}
-                            variant='outline'
-                            noMinWidth
-                            onClick={() => setSelectedFilters([])}
-                    />
                 </div>
             </div>
 
             {/* use cases card */}
-            <div className='py-20 
-                        grid grid-cols-3 gap-5'
-            >
-                {initialUseCases.length > 0
-                    ? initialUseCases.map(item => (
+            <div className='py-20 grid grid-cols-3 gap-5'>
+                {filteredCases.length > 0
+                    ? filteredCases.map(item => (
                         <UseCaseCard key={item.title}
                             useCase={item}
                         />
                     ))
                     : (
-                        <p>등록된 사례가 없습니다.</p>
+                        <p className='col-span-full flex justify-center font-bold text-gray-400'>
+                            등록된 사례가 없습니다.
+                        </p>
                     )
                 }
             </div>

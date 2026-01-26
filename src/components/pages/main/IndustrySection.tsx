@@ -1,14 +1,12 @@
 import React from 'react'
 import { client } from '@/lib/sanity';
 
-import { INDUSTRY_QUERY } from '@/lib/queries';
-import { INDUSTRY_ICONS } from '@/constants/industry';
+import { INDUSTRY_LIST_QUERY } from '@/lib/queries';
 import IconBtn from '@/components/elements/IconBtn';
 import { IndustryDTO } from '@/types/respDto';
-import { HelpCircle } from 'lucide-react';
 
 export default async function IndustrySection() {
-    const industries: IndustryDTO[] = await client.fetch(INDUSTRY_QUERY) || [];
+    const industries: IndustryDTO[] = await client.fetch(INDUSTRY_LIST_QUERY) || [];
 
     return (
         <div className="w-full h-fit flex flex-col items-center">

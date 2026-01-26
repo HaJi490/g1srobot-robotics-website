@@ -10,3 +10,8 @@ export interface NavItem {
         // readonly heroTitle: string;
     }[];
 }
+
+export interface SubtabItem {
+    readonly label: string;
+    readonly id: string;
+}

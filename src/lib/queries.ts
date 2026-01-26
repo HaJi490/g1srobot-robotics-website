@@ -1,11 +1,11 @@
-import { INDUSTRY } from "@/constants/industry";
 
-export const productsQuery = `
+export const PRODUCTS_QUERY = `
   *[_type == "product" && defined(slug.current)]{
-    _id,
-    name,
+    "id":_id,
+    "label": name,
     slug,
     description,
+    specs,
     productLine->{
       name
     },
@@ -17,20 +17,23 @@ export const productsQuery = `
 
 // 제품군
 export const PRODUCT_LINE_QUERY = `
-  *[_type == "productLine"] {
-    // 1. 제품군(ProductLine) 정보 매핑
+  *[_type == "productLine"] | order(name asc) {
+    "id": _id,
     "label": name,
     "content": description,
     "href": "/products",
 
     // 2. 해당 제품군에 속한 제품들을 필터링해서 가져오기(SQL의 JOIN)
     "kind": *[_type == "product" && references(^._id)] {
-        "label": name,
-      "href": "/products/" + slug.current
+      "id":_id,
+      "label": name,
+      "href": "/products/" + slug.current,
+      "specs": specs,
+      "thumbnail": coalesce(mainImage.asset->url, images[0].asset->url)
     },
 
     // 3. 이미지 처리(이미지가 없다면 첫번째 제품의 이미지를 가져오거나 처리)
-    "productImg": *[_type == "product" && references(^._id)[0].images[0].asset->url]
+    "productImg": *[_type == "product" && references(^._id)]| order(_createdAt asc)[0].images[0].asset->url
   }
 `;
 
@@ -52,7 +55,8 @@ export const USE_CASES_QUERY = `
   }
 `;
 
-export const INDUSTRY_QUERY = `
+// 산업
+export const INDUSTRY_LIST_QUERY = `
   *[_type == "industry"] {
     "label": name,
     "slug": slug.current,
@@ -60,3 +64,14 @@ export const INDUSTRY_QUERY = `
     "icon": iconName
   }
 `;
+
+export const INDUSTRY_WITH_PRODUCTS_QUERY = `
+  *[_type == 'industry'] {
+    "label": name,
+    "kind": 
+  }
+`
+
+export const INDUSTRY_DETAIL_QUERY = `
+
+`

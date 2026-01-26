@@ -21,7 +21,7 @@ export default function Button({
     
     const variantStyles = {
         filled: 'bg-main text-white hover:bg-main/70',
-        outline: 'border border-main text-main hover:bg-main/5'
+        outline: 'border border-main text-main hover:bg-main/10'
     }
     return (
         <button onClick={onClick} 

@@ -32,7 +32,7 @@ export default function UseCaseCard({useCase}: UseCaseCardProps) {
         </div>
 
         {/* 호버시 나타나는 검정레이어 */}
-        <div className='absolute inset-0 z-10 bg-black/60 opacity-0 group-hover:opacity-100 
+        <div className='absolute inset-0 z-10 bg-black/70 opacity-0 group-hover:opacity-100 
                         transition-opacity duration-300
                         flex flex-col justify-end p-5 text-white'
         >
