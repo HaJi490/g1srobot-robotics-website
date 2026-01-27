@@ -5,6 +5,7 @@ import { usePathname } from 'next/navigation'
 
 import PageNav from './PageNav';
 import { NAV_ITEMS } from '@/constants/navigation'
+import ScrollReveal from '@/motions/ScrollReveal';
 
 export default function HeroTitle() {
     const pathname = usePathname(); // 현재경로
@@ -26,7 +27,9 @@ export default function HeroTitle() {
             }}
     >
         <div className='w-full h-full flex flex-col justify-center items-center text-white'>
-            <h1 className='text-4xl'>{currentItem?.label}</h1>
+            <ScrollReveal>
+                <h1 className='text-5xl font-bold '>{currentItem?.label}</h1>
+            </ScrollReveal>
             <PageNav />
         </div>
     </section>

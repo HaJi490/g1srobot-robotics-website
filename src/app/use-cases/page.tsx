@@ -11,13 +11,13 @@ import HeroBanner from '@/components/elements/hero/HeroBanner'
 import UseCaseContainer from '@/components/pages/use-cases/UseCaseContainer';
 import { 
   UseCaseDTO, 
-  IndustryDTO, 
+  IndustryListDTO, 
   ProductDTO 
 } from '@/types/respDto';
 
 export default async function page() {
   const useCases: UseCaseDTO[] = await client.fetch(USE_CASES_QUERY) || [];
-  const industries: IndustryDTO[] = await client.fetch(INDUSTRY_LIST_QUERY) || [];
+  const industries: IndustryListDTO[] = await client.fetch(INDUSTRY_LIST_QUERY) || [];
   const products: ProductDTO[] = await client.fetch(PRODUCTS_QUERY) || []
 
 

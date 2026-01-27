@@ -1,4 +1,4 @@
-//SSR
+//SSR FIXME 왜???
 import React from 'react'
 
 import HeroTitle from './HeroTitle'

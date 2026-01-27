@@ -4,6 +4,7 @@ import { client } from "@/lib/sanity";
 import { USE_CASES_QUERY } from '@/lib/queries'
 import UseCaseCard from '@/components/elements/card/UseCaseCard'
 import { UseCaseDTO } from '@/types/respDto';
+import ScrollReveal from '@/motions/ScrollReveal';
 
 export default async function UseCaseSection() {
     const useCases: UseCaseDTO[] = await client.fetch(USE_CASES_QUERY) || [];
@@ -15,18 +16,20 @@ export default async function UseCaseSection() {
             <h2 className='text-4xl font-bold mb-15 max-w-2xl leading-tight'>
                 Lorem ipsum dolor sit amet, consectetur adipiscing elit
             </h2>
+            <ScrollReveal>
             <div className='grid grid-cols-3 gap-5'>
-                {useCases.length > 0 
-                    ?useCases.map(item => (
-                        <UseCaseCard key={item.title} 
-                                    useCase = {item}
-                        />
-                    ))
-                    : (
-                        <p>등록된 사례가 없습니다.</p>
-                    )
-                }
+                    {useCases.length > 0
+                        ?useCases.map(item => (
+                            <UseCaseCard key={item.title}
+                                        useCase = {item}
+                            />
+                        ))
+                        : (
+                            <p>등록된 사례가 없습니다.</p>
+                        )
+                    }
             </div>
+            </ScrollReveal>
         </div>
     </section>
   )

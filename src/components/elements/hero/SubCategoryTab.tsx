@@ -2,7 +2,12 @@
 
 import { useState, useEffect } from 'react'
 
-import { SubtabItem } from '@/types/nav'
+// import { SubtabItem } from '@/types/nav'
+
+interface SubtabItem {
+    readonly label: string;
+    readonly id: string;
+}
 
 interface SubCategoryTabProps {
   list: SubtabItem[];

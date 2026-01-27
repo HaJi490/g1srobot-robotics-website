@@ -1,7 +1,6 @@
 import React from 'react'
 
 import { ContactInfo } from '@/types/support'
-import { MapPin } from 'lucide-react'
 
 interface ContactItemProps {
   info: ContactInfo

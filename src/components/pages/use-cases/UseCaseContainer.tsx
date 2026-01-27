@@ -6,13 +6,13 @@ import { useState, useEffect, useMemo } from 'react'
 import UseCaseCard from '@/components/elements/card/UseCaseCard'
 import Badge from '@/components/ui/Badge';
 import Button from '@/components/ui/Button';
-import { UseCaseDTO, IndustryDTO, ProductDTO } from '@/types/respDto';
+import { UseCaseDTO, IndustryListDTO, ProductDTO } from '@/types/respDto';
 import { RotateCw } from 'lucide-react';
 
 
 interface UseCaseContainerProps {
     initialUseCases: UseCaseDTO[]
-    industries: IndustryDTO[]
+    industries: IndustryListDTO[]
     products: ProductDTO[]
 }
 
@@ -86,7 +86,7 @@ export default function UseCaseContainer({ initialUseCases, industries, products
                         제품군별
                     </button>
                 </div>
-                <div className='max-w-4xl flex gap-3'>
+                <div className='max-w-4xl flex flex-wrap gap-3 justify-center'>
                     <Badge label= '전체' 
                             variant='filter'
                             isActive={isAllSelected}

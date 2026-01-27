@@ -1,14 +1,23 @@
-import React from 'react'
+import { client } from "@/lib/sanity"
 
+import { INDUSTRY_WITH_PRODUCTS_QUERY } from '@/lib/queries'
 import HeroBanner from '@/components/elements/hero/HeroBanner'
 import SubCategoryTab from '@/components/elements/hero/SubCategoryTab'
 import SolutionContainer from '@/components/pages/solutions/SolutionContainer'
+import { IndustryProductsDTO } from "@/types/respDto"
 
-export default function page() {
+export default async function page() {
+  const industries: IndustryProductsDTO[] = await client.fetch(INDUSTRY_WITH_PRODUCTS_QUERY);
+
+  const tabList = industries.map(ind => ({
+    label: ind.label,
+    id: ind.id,
+  }))
   return (
     <div>
         <HeroBanner />
-        <SolutionContainer />
+        <SubCategoryTab list={tabList} />
+        <SolutionContainer industries={industries}/>
     </div>
   )
 }

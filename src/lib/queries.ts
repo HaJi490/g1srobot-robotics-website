@@ -67,11 +67,31 @@ export const INDUSTRY_LIST_QUERY = `
 
 export const INDUSTRY_WITH_PRODUCTS_QUERY = `
   *[_type == 'industry'] {
+    "id": _id,
     "label": name,
-    "kind": 
+    "kind": *[_type == "product" && references(^._id)] {
+      "id": _id,
+      "label": name,
+      "href": "/solutions/" + slug.current,
+      "specs": specs,
+      "thumbnail": coalesce(mainImage.asset->url, images[0].asset->url)
+    }
   }
 `
 
+
+
 export const INDUSTRY_DETAIL_QUERY = `
 
+`
+
+//기술자료
+export const TECH_DOC_QUERY = `
+  *[_type == 'techDoc'] {
+    "id": _id,
+    title,
+    "fileUrl": file.asset->url, // PDF 주소
+    "fileName": file.asset->originalFilename, //원래 파일이름 
+    "fileSize": file.asset->size  //파일용량
+  }
 `

@@ -1,10 +1,10 @@
 import React from 'react'
-import Link from 'next/link';
+import Link from 'next/link'
 
 import { CONTACT_LIST } from '@/constants/contact'
-import { NAV_ITEMS } from '@/constants/navigation';
+import { NAV_ITEMS } from '@/constants/navigation'
 import ContactItem from './ContactItem'
-import FooterNav from './FooterNav';
+import FooterNav from './FooterNav'
 
 export default function Footer() {
   const allContacts = [CONTACT_LIST.MAIL, CONTACT_LIST.PHONE, CONTACT_LIST.ADDRESS];
