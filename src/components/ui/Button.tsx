@@ -1,6 +1,9 @@
 import React from 'react'
+import { cn } from '@/lib/utils'
 
-interface ButtonProps {
+interface ButtonProps 
+extends React.ButtonHTMLAttributes<HTMLButtonElement> 
+{
     label: string | React.ReactNode
     variant?: 'filled' | 'outline'
     className?: string
@@ -10,22 +13,30 @@ interface ButtonProps {
 
 export default function Button({ 
     label, 
-    variant = 'filled', 
+    variant = 'filled',
     className,
     onClick,
-    noMinWidth = false
+    noMinWidth = false,
+    ...props
 }: ButtonProps) {
     const baseStyles = `${ noMinWidth ? 'p-2' :'min-w-40 px-4 py-2'} rounded-md 
-                        flex justify-center items-center t
-                        ext-lg font-semibold cursor-pointer`
+                        flex justify-center items-center 
+                        text-lg font-semibold cursor-pointer`
     
     const variantStyles = {
         filled: 'bg-main text-white hover:bg-main/70',
         outline: 'border border-main text-main hover:bg-main/10'
     }
+
+    // const disabledStyles = 'opacity-40 grayscale active:scale-100 shadow-none'
     return (
         <button onClick={onClick} 
-                className={`${baseStyles} ${variantStyles[variant]} ${className}`}
+                className={cn(
+                    baseStyles, 
+                    variantStyles[variant], 
+                    // disabled && disabledStyles,
+                    className)}
+                {...props}
         >
             {label}
         </button>

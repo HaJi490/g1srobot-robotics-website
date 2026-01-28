@@ -1,4 +1,5 @@
 import React from 'react'
+import { cn } from '@/lib/utils'
 
 interface InputProps 
 extends React.InputHTMLAttributes<HTMLInputElement | HTMLTextAreaElement>
@@ -19,7 +20,7 @@ export default function Input ({
 
     return (
         <div className="grid grid-cols-1 md:grid-cols-[180px_1fr] items-start 
-                        py-4 px-2 last:border-b border-gray-200 first:border-t"
+                        py-4 px-2"
         >
             {/* 라벨 영역 */}
             <div className="flex items-center gap-1 font-bold text-gray-800 py-2">
