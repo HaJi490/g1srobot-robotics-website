@@ -1,4 +1,4 @@
-
+// 제품 (적용사례에서 사용)
 export const PRODUCTS_QUERY = `
   *[_type == "product" && defined(slug.current)]{
     "id":_id,
@@ -14,6 +14,20 @@ export const PRODUCTS_QUERY = `
     }
   }
 `;
+
+// 제품(제품 상세)
+export const PRODUCT_DETAIL_QUERY = `
+  *[_type == "product" && slug.current == $slug][0] {
+    "id": _id,
+    "name": name,
+    "description": description,
+    "mainImage": mainImage.asset->url,
+    "images": images[].asset->url,
+    "specs": specs,
+    "productLine": productLine-> name,
+    "industries": industries[]->name
+  }
+`
 
 // 제품군
 export const PRODUCT_LINE_QUERY = `
@@ -79,8 +93,6 @@ export const INDUSTRY_WITH_PRODUCTS_QUERY = `
   }
 `
 
-
-
 export const INDUSTRY_DETAIL_QUERY = `
 
 `
@@ -89,7 +101,7 @@ export const INDUSTRY_DETAIL_QUERY = `
 export const TECH_DOC_QUERY = `
   *[_type == 'techDoc'] {
     "id": _id,
-    title,
+    "title": title,
     "fileUrl": file.asset->url, // PDF 주소
     "fileName": file.asset->originalFilename, //원래 파일이름 
     "fileSize": file.asset->size  //파일용량

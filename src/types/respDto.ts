@@ -22,8 +22,19 @@ export interface ProductDTO {
     id: string;
     label: string;
     slug: string;
-    specs: ProductSpec[]
+    specs: ProductSpec[];
     description: string;
+    productLine: RelatedItem;
+    industries: RelatedItem[];
+}
+
+export interface ProductDetailDTO {
+    id: string;
+    name: string;
+    description: string;
+    mainImage: string;
+    images: string;
+    specs: ProductSpec[]
     productLine: RelatedItem;
     industries: RelatedItem[];
 }

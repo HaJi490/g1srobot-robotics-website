@@ -1,4 +1,6 @@
 import React from 'react'
+
+import { INPUT_STYLE } from '@/constants/styles'
 import { cn } from '@/lib/utils'
 
 interface FormFieldProps 
@@ -16,10 +18,9 @@ export default function FormField({
     children,
     className
 }: FormFieldProps) {
-    const basicStyles = 'grid grid-cols-1 md:grid-cols-[180px_1fr] items-start py-4 px-2 border-gray-200'
 
     return (
-        <div className={cn(basicStyles, className)}>
+        <div className={cn(INPUT_STYLE.frame, className)}>
             <div className='flex items-center gap-1 font-bold text-gray-800 py-2'>
                 {label}
                 {required && <span className='text-main'>*</span>}

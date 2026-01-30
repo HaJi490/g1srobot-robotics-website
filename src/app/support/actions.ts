@@ -7,6 +7,7 @@ export async function sendInquiry(formData: FormData) {
         company: formData.get('company'),
         name: formData.get('name'),
         email: formData.get('email'),
+        phone: formData.get('phone'),
         content: formData.get('content'),
     }
 

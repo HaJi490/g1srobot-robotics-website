@@ -30,7 +30,7 @@ export default function NavDropbar() {
 
 
     return (
-        <div className='relative py-3  flex items-center
+        <div className='relative py-3 flex items-center
                         bg-black/40 backdrop-blur-md 
                         rounded-full cursor-pointer hover:bg-black/60 transition-all'>
             <div className='relative'>
@@ -40,7 +40,9 @@ export default function NavDropbar() {
                     {openMenu ? <ChevronUp size={14} /> : <ChevronDown size={14} />}
                 </button>
                 {openMenu === 'parent' &&
-                    <ul className='absolute top-[calc(100%+15px)] left-0 min-w-full w-max bg-white text-black shadow-xl rounded-xl py-2 z-20'>
+                    <ul className='absolute top-[calc(100%+15px)] left-0 z-50
+                                min-w-full w-max py-2 bg-white shadow-xl rounded-xl  
+                                text-black'>
                         {NAV_ITEMS.map(item => (
                             <li key={item.href} className='hover:bg-gray-100'>
                                 <Link href={item.href} className={`block px-5 py-2 ${pathname.startsWith(item.href) ? 'text-main font-bold' : ''}`}>
@@ -64,7 +66,7 @@ export default function NavDropbar() {
                             {openMenu === 'child' ? <ChevronUp size={14} /> : <ChevronDown size={14} />}
                         </button>
                         {openMenu === 'child' && (
-                            <ul className='absolute top-[calc(100%+15px)] left-0 min-w-full w-max bg-white text-black shadow-xl rounded-xl py-2 z-20'>
+                            <ul className='absolute top-[calc(100%+15px)] left-0 min-w-full w-max bg-white text-black shadow-xl rounded-xl py-2 z-50'>
                                 {parentItem.items.map(sub => (
                                     <li key={sub.href} className='hover:bg-gray-100'>
                                         <Link href={sub.href} className={`block px-5 py-2 ${pathname === sub.href ? 'text-main font-bold' : ''}`}>
@@ -77,7 +79,6 @@ export default function NavDropbar() {
                     </div>
                 </>
             )}
-
         </div>
     )
 }

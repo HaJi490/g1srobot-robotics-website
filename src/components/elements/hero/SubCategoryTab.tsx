@@ -2,8 +2,6 @@
 
 import { useState, useEffect } from 'react'
 
-// import { SubtabItem } from '@/types/nav'
-
 interface SubtabItem {
     readonly label: string;
     readonly id: string;
@@ -58,7 +56,7 @@ export default function SubCategoryTab({list}: SubCategoryTabProps) {
 
   
   return (
-    <div className='sticky top-0 z-40
+    <div className='sticky top-0 z-30
                     h-20 bg-gray-200 
                     flex justify-center items-center space-x-10'
     >

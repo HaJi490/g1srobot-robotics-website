@@ -34,7 +34,6 @@ export default function Button({
                 className={cn(
                     baseStyles, 
                     variantStyles[variant], 
-                    // disabled && disabledStyles,
                     className)}
                 {...props}
         >

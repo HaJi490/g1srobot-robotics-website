@@ -1,7 +1,5 @@
 'use client'
 
-import React from 'react'
-
 import ProductCard from '@/components/elements/card/ProductCard';
 import { ProductLineDTO , ProductItemDTO} from '@/types/respDto'
 
