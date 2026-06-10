@@ -10,7 +10,7 @@ interface ProductIntroInfoProps {
 }
 
 export default function ProductIntroInfo({ product, contextList, from }: ProductIntroInfoProps) {
-    const mainSpecs = product.specs.slice(0, 3);
+    const mainSpecs = product.specs?.slice(0, 3) || [];
 
     return (
         <div className='flex-1 flex flex-col gap-5 md:gap-10 min-h-0 '>

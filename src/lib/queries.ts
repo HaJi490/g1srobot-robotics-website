@@ -1,5 +1,6 @@
 const PRODUCT_TYPES_CONDITION = `_type in ["system", "robot"] && references(^._id)`;
 const TECH_DOC_TYPE_CONDITION = `_type == "techDoc" && references(^._id)`;
+const hasContentCondition = `(showProduct != false) && defined(description) && count(specs) > 0`;
 
 // 랜딩페이지
 export const LANDING_PAGE_QUERY = `{
@@ -55,6 +56,7 @@ export const UNIVERSAL_DETAIL_QUERY = `
     "name": name,
     "nameEn": nameEn,
     "href": '/products/' + slug.current,
+    "hasContent": ${hasContentCondition},
     "description": description,
     "specs": specs,
     "specsImg": specsImg.asset->url,
@@ -62,10 +64,11 @@ export const UNIVERSAL_DETAIL_QUERY = `
     "industries": industries[]->name,
     "hasDocs": count(*[_type == "techDoc" && references(^._id)]) > 0,
     "images": select(
-        count(images) > 0 => images[].asset->url,
-        [mainImage.asset->url]
+        count(images) > 0 => images[defined(asset)].asset->url,
+        defined(mainImage.asset) => [mainImage.asset->url],
+        []
       ),
-    "videos": videos[].asset->url,
+    "videos": videos[defined(asset)].asset->url,
     
     // 1. 시스템일 경우 연결된 로봇들을 가져옴
     "robots": robots[]-> {
@@ -73,7 +76,7 @@ export const UNIVERSAL_DETAIL_QUERY = `
       "name": name,
       "mainImage": mainImage.asset->url,
       "href": "/products/" + slug.current,
-      "hasContent": (showProduct != false) && defined(description) && count(specs) > 0
+      "hasContent": ${hasContentCondition}
     },
 
     "components": components[] -> {
@@ -81,7 +84,7 @@ export const UNIVERSAL_DETAIL_QUERY = `
       "name": name,
       "mainImage": mainImage.asset->url,
       "href": "/products/" +slug.current,
-      "hasContent": (showProduct != false) && defined(description) && count(specs) > 0
+      "hasContent": ${hasContentCondition}
     }
   }
 `

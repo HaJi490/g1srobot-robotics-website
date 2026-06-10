@@ -40,6 +40,7 @@ export interface UniversalDetailDTO {
     name: string;
     nameEn: string;
     href: string;
+    hasContent: boolean;
     description: string;
     specs: ProductSpec[];
     specsImg: string;

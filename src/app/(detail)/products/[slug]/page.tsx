@@ -38,7 +38,7 @@ export default async function page({ params, searchParams }: PageProps) {
             : null;
 
 
-    if (!product) notFound();
+    if (!product || !product.hasContent) notFound();
     
     const isValid = ['industry', 'productLine'];
     if (from && !isValid.includes(from as string)) notFound();
