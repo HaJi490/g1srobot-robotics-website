@@ -32,49 +32,60 @@ export default function ProductDescriptionSection({ product, from }: Description
                 <div className='flex flex-col gap-10'>
                     <h3 className='font-bold text-base md:text-lg text-gray-700'>핵심 구성 제품</h3>
                     <div className='grid gap-3 grid-cols-3 md:grid-cols-6'>
-
                         {RelatedItems.map((item) => {
                             const isPreparing = !item.hasContent;
-                            return(
-                                <Link 
-                                    key={item.id} 
-                                    href={`${item.href}?from=${from}`}
-                                    onClick={e => {if(isPreparing) e.preventDefault()}}
-                                    className={cn('group flex flex-col gap-2', 
-                                        isPreparing && 'cursor-not-allowed')}
-                                >
+                            const ProductContent = (
+                                <>
                                     <div className={cn('relative flex-1 h-full w-full overflow-hidden aspect-square bg-gray-100',
-                                                    isPreparing && 'grayscale opacity-70'
-                                                )}
+                                        isPreparing && 'grayscale opacity-70'
+                                    )}
                                     >
-                                        {item.mainImage 
-                                            ? <Image 
-                                                src={item.mainImage} 
-                                                alt={item.name} 
-                                                fill 
-                                                className={cn("object-cover transition-all duration-400", !isPreparing && 'group-hover:scale-110')} 
+                                        {item.mainImage
+                                            ? <Image
+                                                src={item.mainImage}
+                                                alt={item.name}
+                                                fill
+                                                className={cn("object-cover transition-all duration-400", !isPreparing && 'group-hover:scale-110')}
                                                 sizes='(max-width: 768px) 33vw, 20vw'
                                             />
-                                            : <ImagePlaceholder size='sm' text={isPreparing ? 'Info Preparing': 'Image Preparing'}/>
+                                            : <ImagePlaceholder size='sm' text={isPreparing ? 'Info Preparing' : 'Image Preparing'} />
                                         }
                                         {isPreparing &&
-                                            <div className={cn('absolute inset-0 z-5', 
-                                                            'p-3 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity', 
-                                                            'flex justify-center items-center')}
+                                            <div className={cn('absolute inset-0 z-5',
+                                                'p-3 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity',
+                                                'flex justify-center items-center')}
                                             >
-                                                <span className='text-white text-center break-keep'>상세정보 준비중인<br/>제품입니다</span>
+                                                <span className='text-white text-center break-keep'>상세정보 준비중인<br />제품입니다</span>
                                             </div>
                                         }
                                     </div>
                                     <span className={cn('font-medium text-sm md:text-base line-clamp-2 break-keep min-h-[2.5rem] md:min-h-[3rem]',
-                                                        isPreparing ? 'text-gray-400' : 'text-gray-700 group-hover:text-main')}
+                                        isPreparing ? 'text-gray-400' : 'text-gray-700 group-hover:text-main')}
                                     >
                                         {item.name}
                                     </span>
+                                </>
+                            )
+                            const sharedClassName = cn(
+                                'group flex flex-col gap-2',
+                                isPreparing ? 'cursor-not-allowed' : 'cursor-pointer'
+                            )
+
+                            if (isPreparing) {
+                                return <div key={item.id} className={sharedClassName}>{ProductContent}</div>
+                            }
+
+                            return (
+                                <Link
+                                    key={item.id}
+                                    href={from ? `${item.href}?from=${from}` : item.href}
+                                    className={sharedClassName}
+                                >
+                                    {ProductContent}
                                 </Link>
                             )
                         })}
-                        
+
                     </div>
                 </div>
             }

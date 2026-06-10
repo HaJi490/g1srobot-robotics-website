@@ -18,7 +18,7 @@ export default function ProductCard({ product, from }: ProductCardProps) {
 
     if (isLinkable) {
         return (
-            <Link href={`${href}?from=${from}`} key={label} className={cardClassName}>
+            <Link href={from ? `${href}?from=${from}` : href} key={label} className={cardClassName}>
                 <ProductCardContent product={product} isLinkable={isLinkable}/>
             </Link>
         )

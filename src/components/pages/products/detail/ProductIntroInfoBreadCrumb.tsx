@@ -83,7 +83,7 @@ export default function ProductIntroInfoBreadCrumb({ product, contextList, from 
                                         <div className='mt-2 border-l-2 border-gray-200 flex flex-col gap-1'>
                                             {item.products.map(i => (
                                                 <Link key={i.id}
-                                                    href={`${i.href}?from=${from}`}
+                                                    href={from ? `${i.href}?from=${from}` : i.href}
                                                     onClick={() => setOpenMenu(false)}
                                                     className={cn(
                                                         "block py-1 px-2 rounded-md whitespace-nowrap hover:bg-gray-100",
